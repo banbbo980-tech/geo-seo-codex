@@ -26,6 +26,15 @@ function Assert-SameFile {
     Assert-True ($expectedHash -eq $actualHash) "Installed canonical file was changed: $Actual"
 }
 
+function Get-RelativeChildPath {
+    param([string]$BasePath, [string]$ChildPath)
+    $separator = [IO.Path]::DirectorySeparatorChar
+    $baseFull = [IO.Path]::GetFullPath($BasePath).TrimEnd([char[]]@('\', '/')) + $separator
+    $childFull = [IO.Path]::GetFullPath($ChildPath)
+    Assert-True ($childFull.StartsWith($baseFull, [StringComparison]::OrdinalIgnoreCase)) "Path is outside expected root: $childFull"
+    return $childFull.Substring($baseFull.Length)
+}
+
 $skillNames = @('geo') + @(Get-ChildItem -LiteralPath (Join-Path $repoRoot 'skills') -Directory | Sort-Object Name | Select-Object -ExpandProperty Name)
 foreach ($skillName in $skillNames) {
     $source = Join-Path $claudeSkills $skillName
@@ -47,7 +56,7 @@ $copyGroups = @(
 foreach ($group in $copyGroups) {
     $sourceRoot = Join-Path $repoRoot $group.Source
     foreach ($sourceFile in Get-ChildItem -LiteralPath $sourceRoot -Recurse -File) {
-        $relative = [IO.Path]::GetRelativePath($sourceRoot, $sourceFile.FullName)
+        $relative = Get-RelativeChildPath $sourceRoot $sourceFile.FullName
         Assert-SameFile $sourceFile.FullName (Join-Path (Join-Path $claudeRoot $group.Destination) $relative)
     }
 }
@@ -73,7 +82,7 @@ print(f'Parsed {len(files)} original Python files')
 & $venvPython -B -c $syntaxCheck (Join-Path $claudeSkills 'geo\scripts')
 if ($LASTEXITCODE -ne 0) { throw 'Original Python syntax verification failed.' }
 
-$moduleCheck = 'import bs4, requests, lxml, PIL, playwright, validators, flask, rich; print("Python dependencies import successfully")'
+$moduleCheck = "import bs4, requests, lxml, PIL, playwright, validators, flask, rich; print('Python dependencies import successfully')"
 & $venvPython -B -c $moduleCheck
 if ($LASTEXITCODE -ne 0) { throw 'Python dependency import verification failed.' }
 
