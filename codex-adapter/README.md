@@ -1,50 +1,51 @@
-# Codex adapter for geo-seo-claude
+# Codex adapter
 
-This directory integrates the canonical upstream toolkit with Codex without changing any upstream-owned file.
+This directory contains the Windows installation, verification, agent-wrapper, and update tools for `banbbo980-tech/geo-seo-codex`.
 
-The author-provided Windows installer remains authoritative for the Claude installation under `~/.claude`. Codex sees those exact installed skill directories through Windows junctions under `~/.agents/skills`. Thin Codex agent wrappers under `~/.codex/agents` point back to the original Markdown agent prompts.
+## Install or repair
 
-## First-time install or repair
-
-Run from PowerShell in the repository root:
+Run the toolkit installer first, then the Codex adapter from the repository root:
 
 ```powershell
-.\codex-adapter\install-codex.ps1
+& "C:\Program Files\Git\bin\bash.exe" ./install-win.sh
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\install-codex.ps1
 ```
 
-This creates or verifies the Codex skill junctions, agent wrappers, minimal global compatibility instructions, and the isolated Python environment at `~/.claude/skills/geo/.venv`.
+The adapter connects the installed toolkit to Codex by creating global skill junctions under `%USERPROFILE%\.agents\skills`, custom-agent wrappers under `%USERPROFILE%\.codex\agents`, and a minimal global `%USERPROFILE%\.codex\AGENTS.md`. Python packages are isolated in `%USERPROFILE%\.claude\skills\geo\.venv`.
 
-## Check for expert updates
+Restart Codex after the first installation.
+
+## Verify
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\verify-install.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\verify-integrity.ps1
+```
+
+The verifier checks skills, agents, junction targets, installed files, schemas, templates, Python imports, upstream tests, Playwright Chromium, Pandoc, and Chrome.
+
+## Check for source updates
 
 ```powershell
 .\codex-adapter\check-upstream.ps1
 ```
 
-This fetches `upstream/main` and reports SHAs, new commits, and changed files. It does not change branches or working files.
+This fetches update metadata and reports the current and latest SHAs, commit messages, and changed files. It does not modify the working tree or branches.
 
-## Install/sync expert updates
+## Synchronize a reviewed update
 
 ```powershell
 .\codex-adapter\sync-upstream.ps1
 ```
 
-This updates `upstream-main`, safely merges it into `main`, reruns the original Windows installer, repairs/verifies the Codex integration, commits the sync, and atomically pushes both branches to `origin`. A merge conflict is reported and aborted; the script never guesses.
+The sync workflow updates `upstream-main`, merges into `main`, reinstalls the toolkit, verifies the Codex integration, creates a sync commit, and atomically pushes both branches. Any merge conflict is safely aborted for manual review.
 
-## Verification
-
-```powershell
-.\codex-adapter\verify-integrity.ps1
-.\codex-adapter\verify-install.ps1
-```
-
-The first command verifies that every upstream-owned tracked file still matches `upstream-main` byte-for-byte. The second validates junctions, wrappers, installed copies, schemas/templates, Python dependencies, original scripts, and upstream tests.
-
-## Using the toolkit
-
-In any Codex project, invoke the main skill by name, for example:
+## Use in Codex
 
 ```text
 $geo quick https://example.com
+$geo audit https://example.com
+$geo report https://example.com
 ```
 
-You can also invoke any installed specialist skill directly, such as `$geo-citability`, `$geo-schema`, or `$geo-technical`.
+See the [main README](../README.md) for the complete command reference, installed skills and agents, reporting workflow, and troubleshooting guide.

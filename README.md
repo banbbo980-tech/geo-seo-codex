@@ -1,284 +1,248 @@
+# geo-seo-codex
+
 <p align="center">
-  <img src="assets/banner.svg" alt="GEO-SEO Claude Code Skill" width="900"/>
+  <strong>A Codex-ready GEO and SEO toolkit for AI-search visibility.</strong><br>
+  Audit websites, improve citability, validate technical SEO and schema, and generate client-ready reports.
 </p>
 
 <p align="center">
-  <strong>GEO-first, SEO-supported.</strong> Optimize websites for AI-powered search engines<br/>
-  (ChatGPT, Claude, Perplexity, Gemini, Google AI Overviews) while maintaining traditional SEO foundations.
+  <a href="https://github.com/banbbo980-tech/geo-seo-codex"><img alt="GitHub repository" src="https://img.shields.io/badge/GitHub-banbbo980--tech%2Fgeo--seo--codex-181717?logo=github"></a>
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows">
+  <img alt="Codex" src="https://img.shields.io/badge/Codex-ready-10A37F">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
-<p align="center">
-  AI search is eating traditional search. This tool optimizes for where traffic is going, not where it was.
-</p>
+This is the independently maintained Codex edition owned by **[banbbo980-tech](https://github.com/banbbo980-tech)**. It is a normal GitHub repository—not a GitHub fork—and includes a Windows-tested Codex integration, global skills, custom agents, an isolated Python environment, verification tools, and safe source-update automation.
 
----
+## What it does
 
-## Star History
+| Area | Capabilities |
+|---|---|
+| GEO visibility | AI citability, brand mentions, AI crawler access, `llms.txt`, and platform readiness |
+| Technical SEO | Crawlability, indexability, metadata, rendering, security, mobile, and performance checks |
+| Content quality | E-E-A-T, readability, freshness, answer quality, and citation-ready passages |
+| Structured data | Schema.org detection, validation, recommendations, and JSON-LD templates |
+| Reporting | Markdown reports, PDF reports, charts, prioritized findings, and action plans |
+| Client workflow | Prospect tracking, proposals, audit comparisons, and monthly progress reports |
 
-<a href="https://www.star-history.com/#zubair-trabzada/geo-seo-claude&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/star-history-dark.svg">
-    <img alt="Star History Chart" src="assets/star-history.svg">
-  </picture>
-</a>
+## How a full audit works
 
----
-
-## Why GEO Matters (2026)
-
-| Metric | Value |
-|--------|-------|
-| GEO services market | $850M+ (projected $7.3B by 2031) |
-| AI-referred traffic growth | +527% year-over-year |
-| AI traffic conversion rate vs organic | 4.4x higher |
-| Gartner: search traffic drop by 2028 | -50% |
-| Brand mentions vs backlinks for AI | 3x stronger correlation |
-| Marketers investing in GEO | Only 23% |
-
----
-
-## Quick Start
-
-### One-Command Install (macOS/Linux)
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/zubair-trabzada/geo-seo-claude/main/install.sh | bash
+```mermaid
+flowchart LR
+    A[Website URL] --> B[Discovery and crawl]
+    B --> C1[AI visibility]
+    B --> C2[Technical SEO]
+    B --> C3[Content and E-E-A-T]
+    B --> C4[Schema markup]
+    B --> C5[Platform readiness]
+    C1 --> D[Composite GEO score]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> D
+    D --> E[Prioritized action plan]
+    E --> F[Markdown or PDF report]
 ```
 
-### Manual Install
-
-```bash
-git clone https://github.com/zubair-trabzada/geo-seo-claude.git
-cd geo-seo-claude
-./install.sh
-```
-
-### Windows (Git Bash)
-
-Requires [Git for Windows](https://git-scm.com/downloads) which includes Git Bash.
-
-```bash
-# Option 1: One-command install (run from Git Bash, not PowerShell/CMD)
-curl -fsSL https://raw.githubusercontent.com/zubair-trabzada/geo-seo-claude/main/install-win.sh | bash
-
-# Option 2: Manual install
-git clone https://github.com/zubair-trabzada/geo-seo-claude.git
-cd geo-seo-claude
-./install-win.sh
-```
-
-> **Note:** Right-click the folder and select "Open Git Bash here", or open Git Bash and navigate to the directory. Do not use PowerShell or Command Prompt.
-
-### Requirements
-
-- Python 3.8+ (on Debian/Ubuntu also `python3-venv`)
-- Claude Code CLI
-- Git
-- Optional: [`uv`](https://docs.astral.sh/uv/) — if present, the installer uses it for a faster dependency install
-- Optional: Playwright (for screenshots)
-
-### Isolated install
-
-Python dependencies are installed into a dedicated virtual environment at
-`~/.claude/skills/geo/.venv/`. Your system Python is **not** touched, and
-uninstalling the skill removes the venv together with the rest of the files.
-
-Skill and agent files reference that venv directly, so the tool works
-regardless of what `python3` resolves to on your `PATH`.
-
----
-
-## Commands
-
-Open Claude Code and use these commands:
-
-| Command | What It Does |
-|---------|-------------|
-| `/geo audit <url>` | Full GEO + SEO audit with parallel subagents |
-| `/geo quick <url>` | 60-second GEO visibility snapshot |
-| `/geo citability <url>` | Score content for AI citation readiness |
-| `/geo crawlers <url>` | Check AI crawler access (robots.txt) |
-| `/geo llmstxt <url>` | Analyze or generate llms.txt |
-| `/geo brands <url>` | Scan brand mentions across AI-cited platforms |
-| `/geo platforms <url>` | Platform-specific optimization |
-| `/geo schema <url>` | Structured data analysis & generation |
-| `/geo technical <url>` | Technical SEO audit |
-| `/geo content <url>` | Content quality & E-E-A-T assessment |
-| `/geo report <url>` | Generate client-ready GEO report |
-| `/geo report-pdf` | Generate professional PDF report with charts & visualizations |
-
----
-
-## Architecture
-
-```
-geo-seo-claude/
-├── geo/                          # Main skill orchestrator
-│   └── SKILL.md                  # Primary skill file with commands & routing
-├── skills/                       # 13 specialized sub-skills
-│   ├── geo-audit/                # Full audit orchestration & scoring
-│   ├── geo-citability/           # AI citation readiness scoring
-│   ├── geo-crawlers/             # AI crawler access analysis
-│   ├── geo-llmstxt/              # llms.txt standard analysis & generation
-│   ├── geo-brand-mentions/       # Brand presence on AI-cited platforms
-│   ├── geo-platform-optimizer/   # Platform-specific AI search optimization
-│   ├── geo-schema/               # Structured data for AI discoverability
-│   ├── geo-technical/            # Technical SEO foundations
-│   ├── geo-content/              # Content quality & E-E-A-T
-│   ├── geo-report/               # Client-ready markdown report generation
-│   ├── geo-report-pdf/           # Professional PDF report with charts
-│   ├── geo-prospect/             # CRM-lite prospect pipeline management
-│   ├── geo-proposal/             # Auto-generate client proposals
-│   └── geo-compare/              # Monthly delta tracking & progress reports
-├── agents/                       # 5 parallel subagents
-│   ├── geo-ai-visibility.md      # GEO audit, citability, crawlers, brands
-│   ├── geo-platform-analysis.md  # Platform-specific optimization
-│   ├── geo-technical.md          # Technical SEO analysis
-│   ├── geo-content.md            # Content & E-E-A-T analysis
-│   └── geo-schema.md             # Schema markup analysis
-├── scripts/                      # Python utilities
-│   ├── fetch_page.py             # Page fetching & parsing
-│   ├── citability_scorer.py      # AI citability scoring engine
-│   ├── brand_scanner.py          # Brand mention detection
-│   ├── llmstxt_generator.py      # llms.txt validation & generation
-│   └── generate_pdf_report.py    # PDF report generator (ReportLab)
-├── schema/                       # JSON-LD templates
-│   ├── organization.json         # Organization schema (with sameAs)
-│   ├── local-business.json       # LocalBusiness schema
-│   ├── article-author.json       # Article + Person schema (E-E-A-T)
-│   ├── software-saas.json        # SoftwareApplication schema
-│   ├── product-ecommerce.json    # Product schema with offers
-│   └── website-searchaction.json # WebSite + SearchAction schema
-├── install.sh                    # One-command installer
-├── uninstall.sh                  # Uninstaller
-├── requirements.txt              # Python dependencies
-└── README.md                     # This file
-```
-
----
-
-## Data Storage
-
-The CRM and reporting skills (`/geo prospect`, `/geo proposal`, `/geo compare`) store runtime data outside the Claude Code directory:
-
-```
-~/.geo-prospects/
-├── prospects.json              # Client/prospect pipeline data
-├── proposals/                  # Generated proposal documents
-│   └── <domain>-proposal-<date>.md
-└── reports/                    # Monthly delta reports
-    └── <domain>-monthly-<YYYY-MM>.md
-```
-
-This directory is **not removed** by the uninstaller — delete it manually if you no longer need your prospect data.
-
----
-
-## How It Works
-
-### Full Audit Flow
-
-When you run `/geo audit https://example.com`:
-
-1. **Discovery** — Fetches homepage, detects business type, crawls sitemap
-2. **Parallel Analysis** — Launches 5 subagents simultaneously:
-   - AI Visibility (citability, crawlers, llms.txt, brand mentions)
-   - Platform Analysis (ChatGPT, Perplexity, Google AIO readiness)
-   - Technical SEO (Core Web Vitals, SSR, security, mobile)
-   - Content Quality (E-E-A-T, readability, freshness)
-   - Schema Markup (detection, validation, generation)
-3. **Synthesis** — Aggregates scores, generates composite GEO Score (0-100)
-4. **Report** — Outputs prioritized action plan with quick wins
-
-### Scoring Methodology
+The composite score uses these categories:
 
 | Category | Weight |
-|----------|--------|
-| AI Citability & Visibility | 25% |
+|---|---:|
+| AI Citability and Visibility | 25% |
 | Brand Authority Signals | 20% |
-| Content Quality & E-E-A-T | 20% |
+| Content Quality and E-E-A-T | 20% |
 | Technical Foundations | 15% |
 | Structured Data | 10% |
 | Platform Optimization | 10% |
 
----
+## Requirements
 
-## Key Features
+The Codex integration is currently tested on Windows 10/11.
 
-### Citability Scoring
-Analyzes content blocks for AI citation readiness. Optimal AI-cited passages are 134-167 words, self-contained, fact-rich, and directly answer questions.
+- [Codex](https://developers.openai.com/codex/) desktop app or CLI
+- [Git for Windows](https://git-scm.com/download/win), including Git Bash
+- Python 3.8 or newer
+- Google Chrome
+- Windows PowerShell 5.1 or PowerShell 7
+- Internet access during initial dependency installation
 
-### AI Crawler Analysis
-Checks robots.txt for 14+ AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.) and provides specific allow/block recommendations.
+The installer creates an isolated Python environment, so it does not install packages into your system Python. Pandoc and Playwright Chromium are installed or verified for PDF reports and browser-based checks.
 
-### Brand Mention Scanning
-Brand mentions correlate 3x more strongly with AI visibility than backlinks. Scans YouTube, Reddit, Wikipedia, LinkedIn, and 7+ other platforms.
+## Download
 
-### Platform-Specific Optimization
-Only 11% of domains are cited by both ChatGPT and Google AI Overviews for the same query. Provides tailored recommendations per platform.
+### Option 1: Clone with Git
 
-### llms.txt Generation
-Generates the emerging llms.txt standard file that helps AI crawlers understand your site structure.
+Open PowerShell and run:
 
-### Client-Ready Reports
-Generates professional GEO reports in markdown or PDF format. PDF reports include score gauges, bar charts, platform readiness visualizations, color-coded tables, and prioritized action plans — ready to deliver to clients.
-
----
-
-## Use Cases
-
-- **GEO Agencies** — Run client audits and generate deliverables
-- **Marketing Teams** — Monitor and improve AI search visibility
-- **Content Creators** — Optimize content for AI citations
-- **Local Businesses** — Get found by AI assistants
-- **SaaS Companies** — Improve entity recognition across AI platforms
-- **E-commerce** — Optimize product pages for AI shopping recommendations
-
----
-
-## Uninstall
-
-```bash
-./uninstall.sh
+```powershell
+git clone https://github.com/banbbo980-tech/geo-seo-codex.git
+cd geo-seo-codex
 ```
 
-Or manually:
-```bash
-rm -rf ~/.claude/skills/geo ~/.claude/skills/geo-* ~/.claude/agents/geo-*.md
+### Option 2: Download a ZIP
+
+[Download the latest `main` branch as a ZIP](https://github.com/banbbo980-tech/geo-seo-codex/archive/refs/heads/main.zip), extract it, and open PowerShell in the extracted folder.
+
+Git clone is recommended because it supports the included update workflow.
+
+## Install on Windows
+
+Run these commands from the repository root.
+
+### 1. Install the toolkit files
+
+```powershell
+& "C:\Program Files\Git\bin\bash.exe" ./install-win.sh
 ```
 
+### 2. Install the Codex integration
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\install-codex.ps1
+```
+
+The installer configures:
+
+- 16 global Codex skills under `%USERPROFILE%\.agents\skills`
+- 5 custom Codex agents under `%USERPROFILE%\.codex\agents`
+- Global compatibility instructions at `%USERPROFILE%\.codex\AGENTS.md`
+- An isolated Python environment at `%USERPROFILE%\.claude\skills\geo\.venv`
+- Python dependencies, Playwright Chromium, and Pandoc support
+
+Restart Codex after the first installation so it discovers all newly installed skills and agents.
+
+## Verify the installation
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\verify-install.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\verify-integrity.ps1
+```
+
+A successful verification reports 16 skills, 5 agents, 14 passing tests, and the detected Python, browser, Pandoc, schema, and template components.
+
+## Use it in Codex
+
+Open any Codex task and invoke the main skill with `$geo`.
+
+```text
+$geo quick https://example.com
+```
+
+Common commands:
+
+| Codex prompt | Result |
+|---|---|
+| `$geo quick https://example.com` | Fast GEO visibility snapshot |
+| `$geo audit https://example.com` | Full GEO and SEO audit using specialist agents |
+| `$geo citability https://example.com` | AI citation-readiness analysis |
+| `$geo crawlers https://example.com` | AI crawler, robots.txt, meta-tag, and header checks |
+| `$geo llmstxt https://example.com` | Analyze or generate an `llms.txt` file |
+| `$geo brands https://example.com` | Brand-authority and mention scan |
+| `$geo platforms https://example.com` | Platform-specific AI-search recommendations |
+| `$geo schema https://example.com` | Structured-data audit and generation |
+| `$geo technical https://example.com` | Technical SEO audit |
+| `$geo content https://example.com` | Content quality and E-E-A-T assessment |
+| `$geo report https://example.com` | Client-ready Markdown report |
+| `$geo report-pdf` | Professional PDF with charts and visualizations |
+| `$geo prospect` | Manage the prospect and client pipeline |
+| `$geo proposal` | Generate a service proposal from audit findings |
+| `$geo compare` | Compare audits and create a progress report |
+
+You can also call a specialist directly:
+
+```text
+$geo-citability analyze https://example.com
+$geo-schema audit https://example.com
+$geo-technical audit https://example.com
+```
+
+## Installed skills
+
+`geo`, `geo-audit`, `geo-brand-mentions`, `geo-citability`, `geo-compare`, `geo-content`, `geo-crawlers`, `geo-llmstxt`, `geo-platform-optimizer`, `geo-proposal`, `geo-prospect`, `geo-report`, `geo-report-pdf`, `geo-schema`, `geo-technical`, and `geo-update`.
+
+## Installed agents
+
+- `geo-ai-visibility`
+- `geo-content`
+- `geo-platform-analysis`
+- `geo-schema`
+- `geo-technical`
+
+The agents divide a full audit into focused analyses and feed their findings back into the final report.
+
+## Reports and local data
+
+Generated prospect and reporting data is stored outside the repository:
+
+```text
+%USERPROFILE%\.geo-prospects\
+├── prospects.json
+├── proposals\
+└── reports\
+```
+
+PDF reports use the included HTML/CSS templates, Pandoc, and Chrome to render score gauges, comparison tables, severity colors, and action-plan charts.
+
+## Check for updates
+
+Check whether the source toolkit has new commits without changing your files:
+
+```powershell
+.\codex-adapter\check-upstream.ps1
+```
+
+Review the reported commits and changed files. To safely synchronize, reinstall, verify, commit, and push the update:
+
+```powershell
+.\codex-adapter\sync-upstream.ps1
+```
+
+The sync script aborts instead of guessing if it encounters a merge conflict. The `upstream-main` branch preserves the exact source history, while `main` contains this repository's Codex integration and documentation.
+
+## Project layout
+
+```text
+geo-seo-codex/
+├── geo/                 Main GEO skill
+├── skills/              15 specialist skills
+├── agents/              5 specialist agent prompts
+├── scripts/             Python analysis utilities
+├── schema/              JSON-LD templates
+├── templates/           Report templates and styling
+├── tests/               Automated tests
+├── codex-adapter/       Codex installation, verification, and sync tools
+└── .github/workflows/   Automated source-update monitoring
+```
+
+## Troubleshooting
+
+### Codex does not recognize `$geo`
+
+Restart Codex, then run the installer and verifier again:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\install-codex.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\codex-adapter\verify-install.ps1
+```
+
+### Git Bash is not found
+
+Install Git for Windows in its default location, then reopen PowerShell. The expected executable is `C:\Program Files\Git\bin\bash.exe`.
+
+### PDF generation fails
+
+Confirm that Google Chrome and Pandoc are installed, then rerun `verify-install.ps1`. The installer normally installs Pandoc through `winget` and downloads Playwright Chromium automatically.
+
+### PowerShell blocks a script
+
+Use the documented `powershell -NoProfile -ExecutionPolicy Bypass -File ...` command. It changes execution policy only for that process.
+
+## Repository ownership and license
+
+This independently maintained Codex edition, its integration scripts, and its documentation are maintained by **banbbo980-tech**. The repository also incorporates MIT-licensed source work and preserves the copyright and permission notice required by the [MIT License](LICENSE). Existing contributor history remains visible and is not rewritten.
+
+You may use, modify, and redistribute the software under the terms of that license.
+
 ---
 
-## Want to Turn This Into a Business?
-
-The tool is free. Learning how to monetize it is where the community comes in.
-
-**[Join the AI Workshop Community →](https://skool.com/aiworkshop)**
-
-Inside you'll get:
-- **Video walkthroughs** — Step-by-step setup, running audits, reading results
-- **Client acquisition playbook** — How to find prospects, pitch GEO services, and close deals
-- **Live office hours** — Bring your audit results, get direct help
-- **GEO agency pricing & templates** — Proposal docs, cold outreach scripts, onboarding workflows
-
-GEO agencies charge $2K–$12K/month. This tool does the audit. The community teaches you how to sell it.
-
----
-
-
-
-
-
-## License
-
-MIT License
-
----
-
-## Contributing
-
-Contributions welcome!
-
----
-
-Built for the AI search era.
+Maintained for practical GEO, SEO, AI-search auditing, and client reporting with Codex.
