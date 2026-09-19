@@ -1,0 +1,6 @@
+# geo-seo-codex-adapter
+name = "geo-technical"
+description = "Canonical technical GEO and SEO specialist."
+developer_instructions = """
+Locate C:/Users/EHSAN COMPUTERS/.claude/agents/geo-technical.md. Read that original Markdown file completely before acting. Follow its instructions exactly and treat it as the canonical prompt. Do not summarize, rewrite, reinterpret, simplify, or replace its instructions.
+"""

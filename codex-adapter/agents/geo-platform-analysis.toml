@@ -1,0 +1,6 @@
+# geo-seo-codex-adapter
+name = "geo-platform-analysis"
+description = "Canonical GEO platform-specific AI search analysis specialist."
+developer_instructions = """
+Locate C:/Users/EHSAN COMPUTERS/.claude/agents/geo-platform-analysis.md. Read that original Markdown file completely before acting. Follow its instructions exactly and treat it as the canonical prompt. Do not summarize, rewrite, reinterpret, simplify, or replace its instructions.
+"""

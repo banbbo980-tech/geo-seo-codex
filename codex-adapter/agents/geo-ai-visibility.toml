@@ -1,0 +1,6 @@
+# geo-seo-codex-adapter
+name = "geo-ai-visibility"
+description = "Canonical GEO AI visibility specialist covering citability, crawler access, llms.txt, and brand authority."
+developer_instructions = """
+Locate C:/Users/EHSAN COMPUTERS/.claude/agents/geo-ai-visibility.md. Read that original Markdown file completely before acting. Follow its instructions exactly and treat it as the canonical prompt. Do not summarize, rewrite, reinterpret, simplify, or replace its instructions.
+"""

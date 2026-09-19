@@ -1,0 +1,6 @@
+# geo-seo-codex-adapter
+name = "geo-content"
+description = "Canonical GEO content and E-E-A-T specialist."
+developer_instructions = """
+Locate C:/Users/EHSAN COMPUTERS/.claude/agents/geo-content.md. Read that original Markdown file completely before acting. Follow its instructions exactly and treat it as the canonical prompt. Do not summarize, rewrite, reinterpret, simplify, or replace its instructions.
+"""
