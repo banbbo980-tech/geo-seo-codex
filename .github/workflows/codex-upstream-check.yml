@@ -1,0 +1,56 @@
+name: Check upstream GEO-SEO updates
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out integration repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compare upstream-main with the expert repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin upstream-main
+          git remote add upstream https://github.com/zubair-trabzada/geo-seo-claude.git
+          git fetch upstream main
+
+          local_sha="$(git rev-parse origin/upstream-main)"
+          remote_sha="$(git rev-parse upstream/main)"
+          new_count="$(git rev-list --count origin/upstream-main..upstream/main)"
+
+          {
+            echo "## GEO-SEO upstream check"
+            echo
+            echo "- Local upstream-main: \`$local_sha\`"
+            echo "- Remote upstream/main: \`$remote_sha\`"
+            echo "- New commits: $new_count"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$new_count" -gt 0 ]; then
+            {
+              echo "### New commits"
+              echo '```text'
+              git log --oneline origin/upstream-main..upstream/main
+              echo '```'
+              echo "### Changed files"
+              echo '```text'
+              git diff --name-status origin/upstream-main upstream/main
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "Upstream updates are available. Run .\\codex-adapter\\sync-upstream.ps1 locally."
+            exit 1
+          fi
+
+          echo "No upstream updates are available." >> "$GITHUB_STEP_SUMMARY"
