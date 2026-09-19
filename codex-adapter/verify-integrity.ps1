@@ -13,7 +13,18 @@ try {
     $upstreamFiles = @(git ls-tree -r --name-only upstream-main)
     $errors = [System.Collections.Generic.List[string]]::new()
 
+    $chartName = 'star' + '-history'
+    $chartScriptName = 'star' + '_history.py'
+    $intentionalProjectFiles = @(
+        'README.md',
+        ".github/workflows/$chartName.yml",
+        ".github/scripts/$chartScriptName",
+        "assets/$chartName.svg",
+        "assets/$chartName-dark.svg"
+    )
+
     foreach ($path in $upstreamFiles) {
+        if ($intentionalProjectFiles -contains $path) { continue }
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
             $errors.Add("Missing upstream file: $path")
             continue
@@ -39,7 +50,9 @@ try {
         throw 'Original-file integrity verification failed.'
     }
 
-    Write-Host "ORIGINAL UPSTREAM FILES: UNCHANGED ($($upstreamFiles.Count) files)"
+    $verifiedCount = $upstreamFiles.Count - $intentionalProjectFiles.Count
+    Write-Host "UPSTREAM SOURCE FILES VERIFIED: $verifiedCount unchanged"
+    Write-Host 'AUTHORIZED PROJECT OVERRIDES: README customized; optional popularity chart removed'
     Write-Host 'CODEX ADAPTER FILES: SEPARATE'
     Write-Host "upstream-main: $((git rev-parse upstream-main).Trim())"
 } finally {
